@@ -4,51 +4,47 @@ interface WeatherDetailsProps {
   data: any;
 }
 
-const WeatherDetails: React.FC<WeatherDetailsProps> = ({ data }) => {
+const WeatherDetails = ({ data }: WeatherDetailsProps) => {
   return (
-    <div className="p-12">
-      <h1 className="mb-4 text-2xl text-white">Weather Details</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Wind Speed</h3>
-            <h3>{data.current?.wind_mph} mph</h3>
+    <div className="flex flex-col gap-4 w-full md:w-1/2">
+      <div className="flex flex-col gap-4 p-8 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">Weather Details</h2>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col p-4 rounded-lg bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-white/40 dark:hover:bg-gray-700/40">
+            <span className="text-gray-700 dark:text-gray-300 transition-colors duration-300">Wind Speed</span>
+            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
+              {data.current?.wind_kph} km/h
+            </span>
           </div>
-        </div>
-
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Humidity</h3>
-            <h3>{data.current?.humidity}%</h3>
+          <div className="flex flex-col p-4 rounded-lg bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-white/40 dark:hover:bg-gray-700/40">
+            <span className="text-gray-700 dark:text-gray-300 transition-colors duration-300">Wind Direction</span>
+            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
+              {data.current?.wind_dir}
+            </span>
           </div>
-        </div>
-
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Real Feel</h3>
-            <h3>{data.current?.feelslike_f}°F</h3>
+          <div className="flex flex-col p-4 rounded-lg bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-white/40 dark:hover:bg-gray-700/40">
+            <span className="text-gray-700 dark:text-gray-300 transition-colors duration-300">Pressure</span>
+            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
+              {data.current?.pressure_mb} mb
+            </span>
           </div>
-        </div>
-
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>UV Index</h3>
-            <h3>{data.current?.uv}</h3>
+          <div className="flex flex-col p-4 rounded-lg bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-white/40 dark:hover:bg-gray-700/40">
+            <span className="text-gray-700 dark:text-gray-300 transition-colors duration-300">UV Index</span>
+            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
+              {data.current?.uv}
+            </span>
           </div>
-        </div>
-
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Visibility</h3>
-            <h3>{data.current?.vis_miles} miles</h3>
+          <div className="flex flex-col p-4 rounded-lg bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-white/40 dark:hover:bg-gray-700/40">
+            <span className="text-gray-700 dark:text-gray-300 transition-colors duration-300">Cloud Cover</span>
+            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
+              {data.current?.cloud}%
+            </span>
           </div>
-        </div>
-
-        <div className="bg-white/50 flex p-4 items-center justify-center gap-6 rounded-xl">
-          <div className="text-2xl">
-            <h3>Air Pressure</h3>
-            <h3>{data.current?.pressure_mb} mb</h3>
+          <div className="flex flex-col p-4 rounded-lg bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-white/40 dark:hover:bg-gray-700/40">
+            <span className="text-gray-700 dark:text-gray-300 transition-colors duration-300">Precipitation</span>
+            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
+              {data.current?.precip_mm} mm
+            </span>
           </div>
         </div>
       </div>

@@ -1,46 +1,52 @@
-import React from 'react'
+import React from "react";
+import Image from "next/image";
 
 interface WeekForecastProps {
   data: any;
 }
 
-const WeekForecast: React.FC<WeekForecastProps> = ({ data }) => {
+const WeekForecast = ({ data }: WeekForecastProps) => {
   return (
-    <div className="p-4">
-      <div className="flex items-center justify-start mt-6">
-        <h1 className="text-2xl text-white">7-Day Forecast</h1>
-      </div>
-      <div className="flex gap-4 overflow-x-auto mt-4">
-        {data.forecast?.forecastday.map((day: any, index: number) => (
+    <div className="flex flex-col gap-4 p-8 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">7-Day Forecast</h2>
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+        {data.forecast?.forecastday?.map((day: any, index: number) => (
           <div
             key={index}
-            className="bg-white/40 p-4 min-w-[160px] rounded-lg flex flex-col items-center"
+            className="flex flex-col items-center p-4 rounded-lg bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-white/40 dark:hover:bg-gray-700/40 hover:shadow-lg"
           >
-            <p className="text-white">
-              {new Date(day.date).toLocaleDateString('en-US', {
-                weekday: 'short',
-                month: 'short',
-                day: 'numeric'
-              })}
+            <p className="text-gray-700 dark:text-gray-300 transition-colors duration-300 font-medium">
+              {new Date(day.date).toLocaleDateString("en-US", { weekday: "short" })}
             </p>
-            <img
-              className="w-[50px] object-cover"
-              src={day.day.condition.icon}
-              alt={day.day.condition.text}
-            />
-            <div className="text-white text-center">
-              <p className="text-xl font-bold">{day.day.maxtemp_f.toFixed()}°F</p>
-              <p className="text-sm">High</p>
-              <p className="text-xl font-bold mt-2">{day.day.mintemp_f.toFixed()}°F</p>
-              <p className="text-sm">Low</p>
-              <p className="text-sm mt-2">{day.day.condition.text}</p>
-              <p className="text-sm">Rain: {day.day.daily_chance_of_rain}%</p>
+            <div className="bg-white/30 dark:bg-gray-700/30 p-2 rounded-full my-2">
+              <Image
+                src={`https:${day.day.condition.icon}`}
+                alt={day.day.condition.text}
+                width={48}
+                height={48}
+                className="transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+            <p className="text-xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
+              {day.day.avgtemp_c}°C
+            </p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 transition-colors duration-300 text-center">
+              {day.day.condition.text}
+            </p>
+            <div className="flex items-center gap-2 mt-2 text-sm">
+              <span className="text-blue-600 dark:text-blue-400">
+                {day.day.maxtemp_c}°
+              </span>
+              <span className="text-gray-500 dark:text-gray-400">/</span>
+              <span className="text-gray-600 dark:text-gray-500">
+                {day.day.mintemp_c}°
+              </span>
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WeekForecast
+export default WeekForecast;

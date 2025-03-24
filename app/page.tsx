@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import WeatherDetails from "./components/WeatherDetails";
 import WeekForecast from "./components/WeekForecast";
 import Current from "./components/Current";
+import ThemeToggle from "./components/ThemeToggle";
 
 export default function Home() {
   const [data, setData] = useState<any>({});
@@ -35,18 +36,18 @@ export default function Home() {
   if (Object.keys(data).length === 0 && error === "") {
     content = (
       <div className="flex items-center justify-center h-[calc(100vh-200px)]">
-        <h2 className="text-4xl text-white font-bold text-center">
+        <h2 className="text-4xl text-gray-800 dark:text-gray-200 font-bold text-center">
           Welcome to Weather App
-          <p className="text-xl font-normal mt-2">Enter a city name to get started</p>
+          <p className="text-xl font-normal mt-2 text-gray-600 dark:text-gray-400">Enter a city name to get started</p>
         </h2>
       </div>
     );
   } else if (error !== "") {
     content = (
       <div className="flex items-center justify-center h-[calc(100vh-200px)]">
-        <div className="text-center text-white">
+        <div className="text-center text-gray-800 dark:text-gray-200">
           <p className="text-3xl mb-4">City not Found</p>
-          <p className="text-xl">Please enter a valid city name</p>
+          <p className="text-xl text-gray-600 dark:text-gray-400">Please enter a valid city name</p>
         </div>
       </div>
     );
@@ -63,14 +64,17 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-cover bg-gradient-to-r from-blue-500 to-blue-300 min-h-screen">
-      <div className="bg-white/25 w-full flex flex-col h-full">
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-blue-300 dark:from-gray-900 dark:to-gray-800 transition-all duration-300">
+      <div className="bg-white/25 dark:bg-black/25 w-full flex flex-col h-full transition-all duration-300">
         {/* input and logo */}
         <div className="flex flex-col md:flex-row justify-between items-center p-12">
           <Input handleSearch={handleSearch} location={location} setLocation={setLocation} />
-          <h1 className="mb-8 md:mb-0 text-white text-2xl py-2 px-4 rounded-xl italic font-bold">
-            Weather App
-          </h1>
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <h1 className="mb-8 md:mb-0 text-gray-800 dark:text-gray-200 text-2xl py-2 px-4 rounded-xl italic font-bold">
+              Weather App
+            </h1>
+          </div>
         </div>
         {content}
       </div>
