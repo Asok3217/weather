@@ -1,18 +1,32 @@
 import React from "react";
 import Image from "next/image";
 
-interface WeekForecastProps {
-  data: any;
+interface ForecastDay {
+  date: string;
+  day: {
+    maxtemp_c: number;
+    mintemp_c: number;
+    condition: {
+      text: string;
+      icon: string;
+    };
+  };
 }
 
-const WeekForecast = ({ data }: WeekForecastProps) => {
+interface WeatherData {
+  forecast: {
+    forecastday: ForecastDay[];
+  };
+}
+
+const WeekForecast = ({ data }: { data: WeatherData }) => {
   return (
     <div className="flex flex-col gap-4 p-8 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">7-Day Forecast</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-        {data.forecast?.forecastday?.map((day: any, index: number) => (
+        {data.forecast.forecastday.map((day) => (
           <div
-            key={index}
+            key={day.date}
             className="flex flex-col items-center p-4 rounded-lg bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-white/40 dark:hover:bg-gray-700/40 hover:shadow-lg"
           >
             <p className="text-gray-700 dark:text-gray-300 transition-colors duration-300 font-medium">
@@ -20,15 +34,15 @@ const WeekForecast = ({ data }: WeekForecastProps) => {
             </p>
             <div className="bg-white/30 dark:bg-gray-700/30 p-2 rounded-full my-2">
               <Image
-                src={`https:${day.day.condition.icon}`}
+                src={`https://cdn.weatherapi.com/weather/64x64/day/${day.day.condition.icon.slice(-7)}`}
                 alt={day.day.condition.text}
-                width={48}
-                height={48}
+                width={64}
+                height={64}
                 className="transition-transform duration-300 hover:scale-110"
               />
             </div>
             <p className="text-xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">
-              {day.day.avgtemp_c}°C
+              {day.day.maxtemp_c}°C
             </p>
             <p className="text-sm text-gray-700 dark:text-gray-300 transition-colors duration-300 text-center">
               {day.day.condition.text}

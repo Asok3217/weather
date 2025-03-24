@@ -1,49 +1,35 @@
 'use client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
+type Theme = 'light' | 'dark';
+
 interface ThemeContextType {
-  theme: string;
+  theme: Theme;
   toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState('light');
-  const [mounted, setMounted] = useState(false);
-
-  // Function to update theme
-  const updateTheme = (newTheme: string) => {
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    // Toggle the dark class on the html element
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    // Check if we're in the browser
-    if (typeof window !== 'undefined') {
-      // Get saved theme preference or default to light
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      updateTheme(savedTheme);
+    const savedTheme = localStorage.getItem('theme') as Theme;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
     }
-    setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    updateTheme(newTheme);
+  const updateTheme = (newTheme: Theme) => {
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
   };
 
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return null;
-  }
+  const toggleTheme = () => {
+    updateTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
