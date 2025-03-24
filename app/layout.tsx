@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.className} min-h-screen transition-colors duration-300 bg-white dark:bg-gray-900`}>
+      <body className={`${poppins.className} min-h-screen transition-colors duration-300`}>
         <ThemeProvider>
           {children}
         </ThemeProvider>

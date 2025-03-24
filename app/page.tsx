@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import WeatherDetails from "./components/WeatherDetails";
 import WeekForecast from "./components/WeekForecast";
 import Current from "./components/Current";
-import ThemeToggle from "./components/ThemeToggle";
+
 
 export default function Home() {
   const [data, setData] = useState<any>({});
@@ -70,7 +70,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row justify-between items-center p-12">
           <Input handleSearch={handleSearch} location={location} setLocation={setLocation} />
           <div className="flex items-center gap-4">
-            <ThemeToggle />
+            
             <h1 className="mb-8 md:mb-0 text-gray-800 dark:text-gray-200 text-2xl py-2 px-4 rounded-xl italic font-bold">
               Weather App
             </h1>
